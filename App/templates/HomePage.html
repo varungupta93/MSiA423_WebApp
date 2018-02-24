@@ -1,13 +1,36 @@
 <!doctype html>
 <link rel = "stylesheet" type ="text">
+
+<style>
+body{
+	height: 100%;
+	background-image: url("/images/Chicago_sunrise_3.jpg");
+	position:relative;
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600" rel="stylesheet" />
+</head>
+
 <title>Crime Forecast</title>
 <h1>Welcome to this Web Application</h1>
 
+
 <body>
 	<div id='inputLoc'>
-		Please tell us which Zip Code you plan on visiting tomorrow
-		<select>
-			<option value="60201">60201</option>
+		Please tell us which Zip Code you plan on visiting tomorrow -
+		<select name="Zipcode">
+			{% for zipcode in zipcodes %}
+				<option value="{{zipcode}}">{{zipcode}}</option>
+			{% endfor %}
 		</select>
+	</div>
 
+	<div align = "center">
+        <a href = "/Result" class="btn btn-primary btn-sm " role="button" aria-pressed="true">Go</a>
+        
+    </div>
 </body>
