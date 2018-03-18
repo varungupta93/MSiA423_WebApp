@@ -12,11 +12,11 @@ zipcodelist = sorted(zipcodelist)
 
 RFregressor = LoadModel()
 
-#weatherForecast = GetForecast()
+weatherForecast = GetForecast()
 
 #Default for testing
-weatherForecast = pd.DataFrame({"Date": [pd.to_datetime("3/20/2018", format = "%m/%d/%Y")],
-								"MeanAppTemp": [53.5], "PrecipIntensity":[0.0],"PrecipProb":[0.5]})
+#weatherForecast = pd.DataFrame({"Date": [pd.to_datetime("3/20/2018", format = "%m/%d/%Y")],
+#								"MeanAppTemp": [53.5], "PrecipIntensity":[0.0],"PrecipProb":[0.5]})
 
 #predictor
 X = weatherForecast

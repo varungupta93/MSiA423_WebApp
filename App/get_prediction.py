@@ -1,7 +1,6 @@
 from sklearn.ensemble import RandomForestRegressor
 import pandas as pd
 import pickle
-import joblib
 
 
 def LoadModel():
