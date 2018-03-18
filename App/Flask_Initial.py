@@ -4,6 +4,8 @@ import pickle
 import pandas as pd
 from get_forecast import GetForecast
 from get_prediction import LoadModel, GetCrimePrediction
+from MsiaApp import application, db, engine
+from MsiaApp 
 
 with open("AllZipCodes.pkl", "rb") as allzips:
 	zipcodes = pickle.load(allzips)
@@ -12,15 +14,15 @@ zipcodelist = sorted(zipcodelist)
 
 RFregressor = LoadModel()
 
-weatherForecast = GetForecast()
+#weatherForecast = GetForecast()
 
 #Default for testing
 #weatherForecast = pd.DataFrame({"Date": [pd.to_datetime("3/20/2018", format = "%m/%d/%Y")],
 #								"MeanAppTemp": [53.5], "PrecipIntensity":[0.0],"PrecipProb":[0.5]})
 
 #predictor
-X = weatherForecast
-#X["Zipcode"] = pd.Series([zipselected]).values
+#X = weatherForecast
+
 
 app = Flask(__name__)
 
@@ -34,7 +36,8 @@ def homepg():
 
 @app.route("/result", methods= ['POST'])
 def resultpg():
-	global X
+	#global X
+	X = pd.read_sql_query("select * from weather;", engine)
 	if request.method == 'POST':
 		zipselected = request.form.get("Zipcode")
 		X["Zipcode"] = int(pd.Series([zipselected]).values) #Temporary BS measure for testing
