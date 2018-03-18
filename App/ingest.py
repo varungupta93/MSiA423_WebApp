@@ -2,6 +2,7 @@ from MsiaApp import db
 from MsiaApp.models import Weather
 import datetime
 from get_forecast import GetForecast
+import numpy
 
 """Ingestion module
 
@@ -21,9 +22,9 @@ def seed_db():
     db.session.query(Weather).delete()
     weatherForecast = GetForecast()
     forecast1 = Weather(Date=weatherForecast.iloc[0]['Date'],
-    					MeanAppTemp = weatherForecast.iloc[0]["MeanAppTemp"],
-    					PrecipProb = weatherForecast.iloc[0]["PrecipProb"],
-    					PrecipIntensity = weatherForecast.iloc[0]["PrecipIntensity"] )
+    					MeanAppTemp = weatherForecast.iloc[0]["MeanAppTemp"].item(),
+    					PrecipProb = weatherForecast.iloc[0]["PrecipProb"].item(),
+    					PrecipIntensity = weatherForecast.iloc[0]["PrecipIntensity"].item())
     db.session.add(forecast1)
     db.session.commit()
 
