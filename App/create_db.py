@@ -1,5 +1,5 @@
 from MsiaApp import db
-import app.data_model
+import MsiaApp.models
 
 def create_db():
     db.create_all()
