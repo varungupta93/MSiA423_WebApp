@@ -1,0 +1,50 @@
+<!doctype html>
+
+<meta charset="UTF-8"">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type = "text">
+<link rel = "stylesheet" href = "https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+.bgimg {
+	min-height: 100%;
+	background-image: url("/images/trial.jpg");
+	background-position: center;
+	background-size: cover;
+	}
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600" rel="stylesheet" />
+</head>
+
+<title>Crime Forecast</title>
+<h1>Welcome to this Web Application</h1>
+
+
+<body>
+	<div id='inputLoc'>
+		Please tell us which Zip Code you plan on visiting tomorrow -
+		<form name="ZipSelection" action="{{ url_for( 'results' ) }}" method= 'POST'> 
+			<select name="Zipcode" id="zipselect">
+				{% for zipcode in zipcodes %}
+					<option value="{{zipcode}}">{{zipcode}}</option>
+				{% endfor %}
+			</select>
+			<button type="submit" id="submitbutton" class
+	</div>
+
+	<div align = "center">
+        <a href = "/Result" class="btn btn-primary btn-sm " role="button" aria-pressed="true">Go</a>
+        
+    </div>
+</body>

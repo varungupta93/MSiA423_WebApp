@@ -1,0 +1,62 @@
+<!doctype html>
+
+<meta charset="UTF-8"">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type = "text">
+<link rel = "stylesheet" href = "https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body{
+	background: url("/static/Chicago_street.jpg");
+	background-size: cover;
+
+}
+.h1, h1{
+	font-size: 3rem;
+}
+
+h1{
+	font-weight:bold;
+	font-size: 32px
+}
+body, html {
+    height: 100%;
+    }
+.bgimg {
+	min-height: 100%;
+	background-image: url("{{ url_for('static', filename='/static/trialimage.jpg') }}");
+	background-position: center;
+	background-size: cover;
+	}
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600" rel="stylesheet" />
+</head>
+
+<title>Crime Forecast</title>
+<h1 align="center" font-size="3rem" style="color:white">Chicago Crime Forecaster</h1>
+
+
+<body>
+	<div id='outputLoc' align="center" style="color:white">
+		The weather forecast for tommorrow is an average temperature of {{meantemp}}F. The probability of precipitation is {{precipprob}}<br>
+		Here's the estimate for the number of non-domestic crimes likely to occur in Zip Code {{zipcode}} tomorrow:<br>
+		{{predictionres}}
+	</div>
+	<div id='goback' align="center">
+		<form name="gobackform" action="{{url_for('homepg')}}" method="POST">
+			<button type = "submit" id="gobackbtn" class = "w3-button w3-green w3-large w3-round-large w3-hover-yellow" aria-presed="true">
+				Go Back
+			</button>
+		</form>
+	</div>
+	<div id="darksky" align = "center">
+		<a href="https://darksky.net/poweredby/" style="color:white">Powered by Dark Sky</a>
+	</div>
+	
+</body>
