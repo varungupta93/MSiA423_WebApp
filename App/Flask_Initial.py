@@ -4,8 +4,7 @@ import pickle
 import pandas as pd
 from get_forecast import GetForecast
 from get_prediction import LoadModel, GetCrimePrediction
-from MsiaApp import application, db, engine
-from MsiaApp 
+from MsiaApp import application, db, engine 
 
 with open("AllZipCodes.pkl", "rb") as allzips:
 	zipcodes = pickle.load(allzips)
@@ -38,10 +37,12 @@ def homepg():
 def resultpg():
 	#global X
 	X = pd.read_sql_query("select * from weather;", engine)
+	print(X)
 	if request.method == 'POST':
 		zipselected = request.form.get("Zipcode")
 		X["Zipcode"] = int(pd.Series([zipselected]).values) #Temporary BS measure for testing
 		X = X[["Zipcode","MeanAppTemp","PrecipIntensity","PrecipProb"]]
+		print(X)
 		predicted = GetCrimePrediction(RFregressor, X)
 
 
