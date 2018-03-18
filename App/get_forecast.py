@@ -22,7 +22,7 @@ def GetForecast():
 	                       "MeanAppTemp": (resp["daily"]["data"][j]["apparentTemperatureLow"] +
 	                                      resp["daily"]["data"][j]["apparentTemperatureHigh"])/2,
 	                       "PrecipProb": resp["daily"]["data"][j]["precipProbability"],
-	                       "PrecipIntensity": resp["daily"]["data"][j]["PrecipIntensity"]})
+	                       "PrecipIntensity": resp["daily"]["data"][j]["precipIntensity"]})
 	weatherForecast = pd.DataFrame(datlist)
 	return weatherForecast.iloc[[1]]
 

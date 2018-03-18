@@ -1,4 +1,4 @@
-from msiapp import db
+from MsiaApp import db
 
 
 # Create a data model for the database to be setup for the app
