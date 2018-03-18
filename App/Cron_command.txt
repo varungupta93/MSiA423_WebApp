@@ -1,1 +1,1 @@
-0-50/5 * * * * source /home/ec2-user/venv/python36/bin/activate && python /home/ec2-user/MSiA423_WebApp/App/ingest.py >/home/ec2-user/MSiA423_WebApp/cronlog.log
+0 2,6,18,19,20 * * * source /home/ec2-user/venv/python36/bin/python /home/ec2-user/MSiA423_WebApp/App/ingest.py >/home/ec2-user/MSiA423_WebApp/cronlog.log
