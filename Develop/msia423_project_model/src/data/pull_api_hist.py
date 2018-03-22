@@ -1,4 +1,3 @@
-#import requests
 import time
 import json
 import config
@@ -6,21 +5,44 @@ import datetime
 import pandas as pd
 import os
 import api_pull_functions
+import yaml
 
-#Chicago coordinates
-latitude = "41.8781"
-longitude = "-87.6298"
+"""
+.. module:: pull_api_hist
+   :platform: Unix, Windows
+   :synopsis: This module pulls historical weather data for Chicago and stores it in a csv .
+
+.. moduleauthor:: Varun Gupta <andrew@invalid.com>
 
 
-enddate = datetime.datetime(2011,1,10) #final date to pull weather for.
+""" 
+def SaveHistoricalWeather():
+	with open("configyaml.yml", 'r') as ymlfile:
+		ymlcfg = yaml.load(ymlfile)
 
-startdate = enddate - datetime.timedelta(days = 40)
+	#Chicago coordinates. Fixed for the purposes of this project
+	latitude = "41.8781"
+	longitude = "-87.6298"
 
-responses = api_pull_functions.pull_darksky(startdate, enddate, config.api_k, latitude,longitude)
+	#Date up to which data needs to be pulled
+	endday = int(configyaml["days"]["endday"])
+	endmonth = int(configyaml["days"]["endmonth"])
+	endyear = int(configyaml["days"]["endyear"])
 
-weatherDat = api_pull_functions.RespToHistoricalDat(responses)
+	enddate = datetime.datetime(endyear,endmonth,endday) #final date to pull weather for.
 
-#curpath = os.getcwd()
-pathToSave = "../../data/external/"
+	startdate = enddate - datetime.timedelta(days = ymlcfg["days"]["daystopull"]) #Capped at 1000 API calls on free tier
 
-weatherDat.to_csv(pathToSave + "WeatherHist10.csv", index= False)
+	responses = api_pull_functions.pull_darksky(startdate, enddate, config.api_k, latitude,longitude)
+
+	weatherDat = api_pull_functions.RespToHistoricalDat(responses)
+
+
+	pathToSave = ymlcfg["path"]["pathtosave"]
+
+	filenum = ymlcfg["files"]["filenum"] #If saving multiple csvs, change num to prevent overwrite.
+
+	weatherDat.to_csv(pathToSave + "WeatherHist" + str(filenum) ".csv", index= False)
+
+if __name__ == '__main__':
+	SaveHistoricalWeather()
