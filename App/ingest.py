@@ -6,17 +6,16 @@ import numpy
 
 """Ingestion module
 
-This module is meant to be called to ingest data and place it into db. Once an API is used
-the module can be extended with a function that calls the API and puts the data into the db.
+This module is meant to be called to ingest data and place it into db. The dark sky API is called to retrieve the next
+day's forecast and the function within this module then sputs the data into the db.
 
 Functionality presumes that the db has already been created. 
 
 """
 
 def seed_db():
-    """Seed a preexisting db with dat
-
-    Returns:
+    """Seed the prexisting db with fresh forecast data from the Dark Sky API. If app functionality is ever
+    extended to support multiple date choices, the function can be modified to keep multiple dates in the db.
 
     """
     db.session.query(Weather).delete()

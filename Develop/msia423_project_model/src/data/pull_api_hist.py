@@ -10,13 +10,16 @@ import yaml
 """
 .. module:: pull_api_hist
    :platform: Unix, Windows
-   :synopsis: This module pulls historical weather data for Chicago and stores it in a csv .
+   :synopsis: This module pulls historical weather data for Chicago and stores it in a csv.
 
 .. moduleauthor:: Varun Gupta <andrew@invalid.com>
 
 
-""" 
+"""
 def SaveHistoricalWeather():
+	""" This function pulls historical Chicago weather data, for a date range specified by the YAML file configyaml, and stores it in a csv.
+		The csvs are stored in Develop/msia423_project_model/Data/external, unless otherwise specified in the YAML file.
+	"""
 	with open("configyaml.yml", 'r') as ymlfile:
 		ymlcfg = yaml.load(ymlfile)
 
@@ -38,7 +41,7 @@ def SaveHistoricalWeather():
 	weatherDat = api_pull_functions.RespToHistoricalDat(responses)
 
 
-	pathToSave = ymlcfg["path"]["pathtosave"]
+	pathToSave = ymlcfg["path"]["pathtosave"] #If this is changed in the YAML, modelling files need to be modified to load from the correct location
 
 	filenum = ymlcfg["files"]["filenum"] #If saving multiple csvs, change num to prevent overwrite.
 
