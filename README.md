@@ -5,6 +5,8 @@ Repository for Web Application created for MSiA423-Analytics Value Chain at Nort
 For this project, a web application was built that takes a user's Zipcode of interest, combines that with weather data and provides a forecast of the number of crimes in that neighbourhoods the next day.
 Crimes do not include domestic crimes, financial fraud, licencing failures, narcotics possession, and a number of other categories that typically would not make a difference to the average visitor. These categories were filtered out from the data before training the model.
 
+Sphinx documentation can be found in Develop/build.
+
 ## Data Sources and Reproduction of Raw data:
 Chicago Crime Data (Change year for each year)
 https://data.cityofchicago.org/Public-Safety/Crimes-2017/d62x-nvdr
@@ -35,7 +37,7 @@ With all your data saved correctly, run Develop/msia423_project_model/src/model/
 
 ## Reproduction of app:
 
-###Set up config
+### Set up config
 In a file named config.py, stored in App/, store your dark sky API key, and your RDS connection parameter in this format:
 
 ```
@@ -43,7 +45,7 @@ api_k = "your_api_key"
 SQLALCHEMY_DATABASE_URI = "mysql+pymysql://awsuername:awspassword@rdslink.com:Port#/Dbname"
 ```
 
-###Deploy Model
+### Deploy Model
 First set up the virtual environment
 At the level of "ec2-user/home", which is represented as "~""
 ```
