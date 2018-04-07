@@ -7,6 +7,15 @@ from get_prediction import LoadModel, GetCrimePrediction
 from MsiaApp import application, db, engine
 import numpy as np 
 
+"""Flask module
+
+This module runs the final flask application when everything else is ready, including HTML pages, model pkl,
+series of zipcodes, and functions to get predictions from the model, as well as the database.
+The app is hosted on 0.0.0.0
+
+"""
+
+#Load zip codes to populate dropdown.
 with open("AllZipCodes.pkl", "rb") as allzips:
 	zipcodes = pickle.load(allzips)
 zipcodelist = list(zipcodes)
@@ -14,40 +23,30 @@ zipcodelist = sorted(zipcodelist)
 
 RFregressor = LoadModel()
 
-#weatherForecast = GetForecast()
-
-#Default for testing
-#weatherForecast = pd.DataFrame({"Date": [pd.to_datetime("3/20/2018", format = "%m/%d/%Y")],
-#								"MeanAppTemp": [53.5], "PrecipIntensity":[0.0],"PrecipProb":[0.5]})
-
-#predictor
-#X = weatherForecast
-
-
 app = Flask(__name__)
 
 @app.route("/")
 @app.route("/Home", methods=['POST'])
 def homepg():
-	if request.method == 'POST':
+	if request.method == 'POST': #In case user presses back button.
 		return render_template("HomePage_Testing.html", zipcodes = zipcodelist)
 	else:
 		return render_template("HomePage_Testing.html", zipcodes = zipcodelist)
 
 @app.route("/result", methods= ['POST'])
 def resultpg():
-	#global X
-	X = pd.read_sql_query("select * from weather;", engine)
+	
+	X = pd.read_sql_query("select * from weather;", engine) # Pull forecast data from RDS database.
 	X["MeanAppTemp"] = X["MeanAppTemp"].astype(np.float64)
 	X["PrecipProb"] = X["PrecipProb"].astype(np.float64)
 	X["PrecipIntensity"] = X["PrecipIntensity"].astype(np.float64)
-	print(X)
+	
 	if request.method == 'POST':
-		zipselected = request.form.get("Zipcode")
-		X["Zipcode"] = int(pd.Series([zipselected]).values) #Temporary BS measure for testing
+		zipselected = request.form.get("Zipcode") #Store user input data from home page.
+		X["Zipcode"] = int(pd.Series([zipselected]).values) 
 		X = X[["Zipcode","MeanAppTemp","PrecipIntensity","PrecipProb"]]
-		print(X)
-		predicted = GetCrimePrediction(RFregressor, X)
+		
+		predicted = GetCrimePrediction(RFregressor, X) #Get prediction from model.
 
 
 	return render_template("Results.html", zipcode = zipselected, meantemp = round(X.iloc[0]['MeanAppTemp'],2),

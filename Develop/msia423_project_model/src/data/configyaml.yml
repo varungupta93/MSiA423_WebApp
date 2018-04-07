@@ -1,0 +1,11 @@
+path:
+  pathtosave: "../../data/external/"
+
+days:
+  daystopull: 950
+  endday: 15
+  endmonth: 2
+  endyear: 2018
+
+files:
+  filenum: 1
