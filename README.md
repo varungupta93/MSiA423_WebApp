@@ -31,6 +31,8 @@ The final data to be used will be found in Develop/msia423_project_model/data/pr
 ### Model Used:
 A random forest model was used, with hyperparameters tuned to minimize SSE/RMSE. The reasoning behind going with tree models was that the relationship between weather and crime while interesting is certainly not linear, and that trees are great at handling categoricals with a large number of levels (They sort of treat numerical variables in a similar way).
 
+It should be noted that for the purposes of this project, given that the actual deployment of the application was the focus and not the underlying model, Zipcodes were wrongly allowed to be treated as numericals (due to Scikit-Learn's inability forced use of one-hot encoding for even sparse categoricals as opposed to H2O's treatment in such situations). The negative impact of this may be slightly allieviated by the fact that random forests have enough depth to repeatedly split on that feature to create several buckets, but it's still not a well optimized solution for the predictive model.
+
 ## Reproduction of model:
 With all your data saved correctly, run Develop/msia423_project_model/src/model/train_model.py
 
